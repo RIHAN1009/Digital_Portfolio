@@ -508,6 +508,19 @@
       transform: scale(1.1) rotate(5deg);
       box-shadow: 0 0 20px rgba(0, 255, 245, 0.3);
     }
+
+    /* Prevent long labels from overflowing their small skill tiles */
+    .skill-item {
+      overflow: hidden;
+      word-break: break-word;
+    }
+
+    .skill-item > span {
+      display: block;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      max-width: 100%;
+    }
     
     /* Contact Form */
     .form-input {
