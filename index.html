@@ -127,6 +127,68 @@
       box-shadow: 0 10px 30px rgba(157, 78, 255, 0.4);
     }
     
+    /* Scroll to Top Button */
+    #scroll-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0, 255, 245, 0.5), 0 0 40px rgba(157, 78, 255, 0.3);
+      pointer-events: none;
+      visibility: hidden;
+      overflow: visible;
+    }
+    
+    #scroll-to-top:hover {
+      opacity: 1 !important;
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 255, 245, 0.8), 0 0 60px rgba(157, 78, 255, 0.5);
+    }
+    
+    #scroll-to-top.show {
+      opacity: 0.9;
+      pointer-events: auto;
+      visibility: visible;
+    }
+    
+    #scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      color: var(--bg-primary);
+    }
+    
+    /* Cat animations */
+    @keyframes tailWag {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(20deg); }
+      75% { transform: rotate(-20deg); }
+    }
+    
+    @keyframes catBounce {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    #sitting-cat {
+      animation: catBounce 1.5s ease-in-out infinite;
+    }
+    
+    #sitting-cat #cat-tail {
+      transform-origin: 45px 90px;
+      animation: tailWag 1s ease-in-out infinite;
+    }
+
     /* Social Icons */
     .social-icon {
       width: 48px;
@@ -548,6 +610,13 @@
 </head>
 <body class="h-full">
   <canvas id="particles-canvas"></canvas>
+  
+  <!-- Scroll to Top Button -->
+  <button id="scroll-to-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
   
   <div class="portfolio-wrapper" id="portfolio">
     <!-- Hero Section -->
@@ -1011,6 +1080,48 @@
         </div>
       </div>
     </section>
+
+    <!-- Sitting Cat with Tracking Eyes -->
+    <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(0, 255, 245, 0.05), rgba(157, 78, 255, 0.05)); border-top: 1px solid rgba(255,255,255,0.1);">
+      <h3 class="font-orbitron text-lg mb-6 text-purple-400">Made with 💜 by Rihan</h3>
+      <div style="display: inline-block; position: relative; width: 150px; height: 150px;">
+        <svg id="sitting-cat" width="150" height="150" viewBox="0 0 150 150" style="filter: drop-shadow(0 0 20px rgba(157, 78, 255, 0.3));">
+          <!-- Head -->
+          <circle cx="75" cy="45" r="35" fill="#FF9D5C" stroke="#2C1810" stroke-width="2"/>
+          <!-- Ears -->
+          <path d="M 50 15 L 40 0 L 55 10 Z" fill="#FF9D5C" stroke="#2C1810" stroke-width="1.5"/>
+          <path d="M 100 15 L 110 0 L 95 10 Z" fill="#FF9D5C" stroke="#2C1810" stroke-width="1.5"/>
+          <!-- Inner ears -->
+          <path d="M 52 13 L 46 0 L 57 11 Z" fill="#FFCBAA"/>
+          <path d="M 98 13 L 104 0 L 93 11 Z" fill="#FFCBAA"/>
+          <!-- Left Eye White -->
+          <circle cx="60" cy="35" r="8" fill="white" stroke="#2C1810" stroke-width="1"/>
+          <!-- Right Eye White -->
+          <circle cx="90" cy="35" r="8" fill="white" stroke="#2C1810" stroke-width="1"/>
+          <!-- Left Eye Pupil (will track cursor) -->
+          <circle class="cat-eye" cx="60" cy="35" r="5" fill="#2C1810" data-eye-x="60" data-eye-y="35"/>
+          <!-- Right Eye Pupil (will track cursor) -->
+          <circle class="cat-eye" cx="90" cy="35" r="5" fill="#2C1810" data-eye-x="90" data-eye-y="35"/>
+          <!-- Nose -->
+          <path d="M 75 50 L 72 57 L 78 57 Z" fill="#FF69B4" stroke="#2C1810" stroke-width="1"/>
+          <!-- Mouth -->
+          <path d="M 75 57 Q 70 63 65 61" stroke="#2C1810" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M 75 57 Q 80 63 85 61" stroke="#2C1810" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Whiskers -->
+          <line x1="45" y1="40" x2="15" y2="35" stroke="#2C1810" stroke-width="1" stroke-linecap="round"/>
+          <line x1="45" y1="50" x2="15" y2="55" stroke="#2C1810" stroke-width="1" stroke-linecap="round"/>
+          <line x1="105" y1="40" x2="135" y2="35" stroke="#2C1810" stroke-width="1" stroke-linecap="round"/>
+          <line x1="105" y1="50" x2="135" y2="55" stroke="#2C1810" stroke-width="1" stroke-linecap="round"/>
+          <!-- Body -->
+          <ellipse cx="75" cy="100" rx="30" ry="35" fill="#FF9D5C" stroke="#2C1810" stroke-width="2"/>
+          <!-- Front Paws -->
+          <rect x="55" y="120" width="12" height="25" rx="6" fill="#FF9D5C" stroke="#2C1810" stroke-width="1.5"/>
+          <rect x="83" y="120" width="12" height="25" rx="6" fill="#FF9D5C" stroke="#2C1810" stroke-width="1.5"/>
+          <!-- Tail curled -->
+          <path id="cat-tail" d="M 45 90 Q 25 85 20 110 Q 22 125 35 128" stroke="#FF9D5C" stroke-width="8" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
     
     <!-- Footer -->
     <footer class="px-6 py-8 border-t border-white/10">
@@ -1807,6 +1918,66 @@
 
       tick();
     }
+
+    // Cat eyes tracking cursor
+    function initCatEyes() {
+      const svg = document.getElementById('sitting-cat');
+      const eyes = document.querySelectorAll('.cat-eye');
+      
+      document.addEventListener('mousemove', (e) => {
+        const svgRect = svg.getBoundingClientRect();
+        const svgCenterX = svgRect.left + svgRect.width / 2;
+        const svgCenterY = svgRect.top + svgRect.height / 2;
+        
+        eyes.forEach(eye => {
+          const eyeX = parseFloat(eye.getAttribute('data-eye-x'));
+          const eyeY = parseFloat(eye.getAttribute('data-eye-y'));
+          
+          // Convert SVG coordinates to screen coordinates
+          const screenEyeX = svgRect.left + (eyeX / 150) * svgRect.width;
+          const screenEyeY = svgRect.top + (eyeY / 150) * svgRect.height;
+          
+          const angle = Math.atan2(e.clientY - screenEyeY, e.clientX - screenEyeX);
+          const distance = 3;
+          
+          const pupilX = eyeX + Math.cos(angle) * distance;
+          const pupilY = eyeY + Math.sin(angle) * distance;
+          
+          eye.setAttribute('cx', pupilX);
+          eye.setAttribute('cy', pupilY);
+        });
+      });
+    }
+    
+    initCatEyes();
+    
+    // Scroll to Top Button
+    const scrollToTopBtn = document.getElementById('scroll-to-top');
+    const portfolioWrapper = document.getElementById('portfolio');
+    
+    // Listen to both window scroll and portfolio wrapper scroll
+    const handleScroll = () => {
+      const scrollY = window.scrollY || portfolioWrapper.scrollTop;
+      if (scrollY > 300) {
+        scrollToTopBtn.classList.add('show');
+      } else {
+        scrollToTopBtn.classList.remove('show');
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    portfolioWrapper.addEventListener('scroll', handleScroll);
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      portfolioWrapper.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cf52517f5280fe2',t:'MTc3MTMyOTg0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
