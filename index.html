@@ -609,6 +609,9 @@
   </style>
 </head>
 <body class="h-full">
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress-bar" style="position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #00FFF5 0%, #9D4EFF 100%); width: 0%; z-index: 10000; transition: width 0.1s ease; box-shadow: 0 0 10px rgba(0, 255, 245, 0.6);"></div>
+  
   <canvas id="particles-canvas"></canvas>
   
   <!-- Scroll to Top Button -->
@@ -1978,6 +1981,37 @@
         behavior: 'smooth'
       });
     });
+    
+    // Scroll Progress Bar
+    function updateScrollProgress() {
+      const progressBar = document.getElementById('scroll-progress-bar');
+      const scrollContainer = document.getElementById('portfolio');
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Try both: window scroll and container scroll
+      const windowScroll = window.scrollY;
+      const containerScroll = scrollContainer ? scrollContainer.scrollTop : 0;
+      const currentScroll = Math.max(windowScroll, containerScroll);
+      
+      // Total scrollable height
+      const totalHeight = Math.max(
+        documentHeight - windowHeight,
+        scrollContainer ? (scrollContainer.scrollHeight - scrollContainer.clientHeight) : 0
+      );
+      
+      const scrollPercent = totalHeight > 0 ? (currentScroll / totalHeight) * 100 : 0;
+      progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+    }
+    
+    // Listen to scroll events
+    window.addEventListener('scroll', updateScrollProgress);
+    if (document.getElementById('portfolio')) {
+      document.getElementById('portfolio').addEventListener('scroll', updateScrollProgress);
+    }
+    
+    // Initial update
+    updateScrollProgress();
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cf52517f5280fe2',t:'MTc3MTMyOTg0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
